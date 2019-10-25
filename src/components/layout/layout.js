@@ -33,10 +33,9 @@ export default function Layout() {
         <div className={classes.root}>
             <Header onSidebarOpen={handleDrawerOpen} open={open} />
             <Sidebar onSidebarClose={handleDrawerClose} open={open} />
-            <Content />
-            <div>
+            <Content>             
                 <Footer/>
-            </div>
+            </Content>
             
             {/* <div>
                 <div className={classes.sidebar}><Sidebar onSidebarClose={handleDrawerClose} open={open} /></div>
