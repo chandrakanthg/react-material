@@ -16,7 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-
+import { BrowserRouter, Link } from 'react-router-dom';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     hide: {
@@ -80,11 +80,11 @@ const Sidebar = (props) => {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (            
+              <ListItem button key={text} component={Link} to={"/" + text}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={text} />                                       
+              </ListItem>            
           ))}
         </List>
         <Divider />

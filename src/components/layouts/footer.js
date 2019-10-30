@@ -5,9 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles(theme => ({    
-    // footer: {
-    //     backgroundColor: theme.palette.background.paper
-    // }
+    direction: {
+        flexDirection: 'row',
+        justifyContent: "flex-end",
+        flex: '0 0 100%'
+    }
 }));
 
 export default function Footer () {   
