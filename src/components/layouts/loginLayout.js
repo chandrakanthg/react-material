@@ -6,6 +6,8 @@ import Login from '../login/login';
 
 export default function LoginLayout() {
     return(
-        <Login />
+        <React.Fragment>
+            {this.props.children}
+        </React.Fragment>
     );
 }
