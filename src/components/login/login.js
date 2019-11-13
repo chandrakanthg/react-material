@@ -4,7 +4,6 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,6 +11,9 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 import { withStyles } from "@material-ui/core/styles";
 
 const style = {
@@ -45,21 +47,33 @@ const styles = theme=> ({
 class Login extends Component {    
     constructor(props) {
         super(props);
-        this.sate = {
+        this.state = {
             username: '',
             password: '',
+            loginErrors: '',
+            submitted: false,
         }
+        this.handleSignIn = this.handleSignIn.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
     
     handleSignIn(e) {
         e.preventDefault();
-        let username = e.target.name;
+        const  {username, password} = this.state;
+        
         console.log('clicked');
-        console.log(e.target);
+        console.log(username, password);
     }
 
     render() {
         const { classes } = this.props;
+        const { submitted } = this.state;
         return(
             <Container component="main" maxWidth="xs">
                 <CssBaseline />            
@@ -70,16 +84,19 @@ class Login extends Component {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} onSubmit= {this.handleSignIn.bind(this)} noValidate>
+                    <ValidatorForm ref="form" className={classes.form} onSubmit= {this.handleSignIn} noValidate>
                         <TextField
                             variant="outlined"
-                            margin="normal"
-                            required
+                            margin="normal"                            
                             fullWidth
                             id="username"
                             label="User name"
                             name="username"
                             autoComplete="username"
+                            value = {this.state.username}
+                            onChange = {this.handleChange}
+                            validators = {['required', 'isEmail']}
+                            errorMessages = {['field is required', 'email is not valid']}
                             autoFocus
                         />
                         <TextField
@@ -92,6 +109,10 @@ class Login extends Component {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value = {this.state.password}
+                            onChange = {this.handleChange}
+                            validators = {['required']}
+                            errorMessages = {['field is required']}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
@@ -103,6 +124,7 @@ class Login extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled = {submitted}
                         >
                             Sign In
                         </Button>
@@ -118,7 +140,7 @@ class Login extends Component {
                                 </Link>
                             </Grid>
                         </Grid>
-                    </form>                
+                    </ValidatorForm>                
                 </div>
             </Container>
         );
