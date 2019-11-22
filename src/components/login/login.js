@@ -16,6 +16,7 @@ import * as Yup from 'yup';
 
 import { withStyles } from "@material-ui/core/styles";
 import { red } from '@material-ui/core/colors';
+import { Redirect } from 'react-router-dom';
 
 const style = {
     margin: 15,
@@ -63,7 +64,7 @@ const styles = theme => ({
 const MyCheckBox = ({label, ...props}) => {    
     const [field, meta] = useField(props);    
     return(
-        <FormControlLabel {...field} control={<Checkbox />} label={label} />
+        <FormControlLabel {...field} control={<Checkbox />}  label={label} />
     )
 };
 
@@ -94,6 +95,14 @@ class Login extends Component {
     //     console.log(username, password);
     // }
 
+    handleSubmit = (values, actions) => {
+        actions.setSubmitting(true)
+        console.log(values)
+        console.log(actions)
+        const { history } = this.props
+        history.push('/Home')
+    }
+
     render() {
         const { classes } = this.props;
         // const { submitted } = this.state;
@@ -117,14 +126,17 @@ class Login extends Component {
                                 .min(6, 'Password must be at least 6 characters')
                                 .required('Email is required')
                         })}
-                        onSubmit={(fields, { setSubmitting }) => {
-                            setSubmitting(true);
-                            alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
-                            setSubmitting(false);
-                            // this.handleSignIn()
-                        }}
-                        render={({ values, isSubmitting, touched, errors}) => (
-                            <Form className={classes.form} noValidate>
+                        onSubmit={this.handleSubmit}
+                        // onSubmit={(field, {setSubmitting}) => {
+                        //     setSubmitting(true);
+                        //     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
+                        //     setSubmitting(false);
+                        //     // router.Redirect.to = '/Home';                            
+                        //     return <Redirect to="/Home" />;
+                        //     // this.handleSignIn()
+                        // }}
+                        render={({ values, isSubmitting, touched, errors, handleSubmit}) => (
+                            <Form className={classes.form} onSubmit={handleSubmit} noValidate>
                                 <Field placeholder="Enter user name" variant="outlined" margin="normal" error={touched.username && Boolean(errors.username)}
                                     fullWidth name="username" type="input" as={TextField} />
                                     <ErrorMessage name="username" component="div" />

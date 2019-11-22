@@ -7,7 +7,6 @@ import Footer from './footer';
 import Content from './content';
 import Sidebar from './sidebar';
 import Movies from '../movies/movies';
-import Login from '../login/login';
 
 const useStyles = makeStyles(theme => ({    
     root: {
@@ -22,10 +21,33 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Home = ()=> {
-    return ('Home comp');
+    return (`Home comp fdsfa saffffffffffffff 
+    saf
+    f
+    sd
+    sd
+    sds
+    ds
+    ds
+    dsd
+    sdsdsds
+    sds
+    ds
+    dsds
+    ds
+    d
+    sd
+    sd
+    sd
+    d
+    s
+    ds
+    ds
+    d
+    f`);
 }
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -36,16 +58,18 @@ export default function Dashboard() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    console.log(props, 'side');
     return (
         <div className={classes.root}>
             <Header onSidebarOpen={handleDrawerOpen} open={open} />
             <Router>
-                <Sidebar onSidebarClose={handleDrawerClose} open={open} />
+                <Sidebar onSidebarClose={handleDrawerClose} open={open} {...props}/>
                 <Content>                                      
                     <Switch>
-                        <Route exact component={Home} path="/" /> 
-                        <Route component={Movies} path="/Starred" />
-                        <Route component={Login} path="/Inbox" />
+                        <Route exact component={Home} path={props.match.url }  /> 
+                        <Route component={Movies} path= {props.match.url + '/Starred'} />  
+                        <Route component={() => <div>Inox Page</div>} path= {props.match.url + '/Inbox'} />  
+                        <Route component={() => <div>404</div>} path="*" />                                             
                     </Switch>               
                 </Content>                
             </Router>            

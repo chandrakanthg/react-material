@@ -58,6 +58,8 @@ const useStyles = makeStyles(theme => ({
 const Sidebar = (props) => {    
     const classes = useStyles();
     const theme = useTheme();
+    const {match} = props;
+   
     return (    
         <Drawer
         variant="permanent"
@@ -81,7 +83,7 @@ const Sidebar = (props) => {
         <Divider />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (            
-              <ListItem button key={text} component={Link} to={"/" + text}>
+              <ListItem button key={text} component={Link} to={match.path+ '/' + text}>
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                 <ListItemText primary={text} />                                       
               </ListItem>            

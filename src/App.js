@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import logo from './logo.svg';
 import Button from '@material-ui/core/Button';
 import './App.css';
@@ -21,8 +21,9 @@ const AppRoute = ({components: Component, layout: Layout, ...rest})=> (
 function App() {
   return (
     <Router>
-      <AppRoute path='/' layout={LoginLayout} component={Login} />
+      <AppRoute exact path='/' layout={LoginLayout} component={Login} />
       <AppRoute path='/Home' layout={MainLayout} component={Dashboard}></AppRoute>
+      {/* <Redirect from="*" to="/" /> */}
     </Router>
   );
 }

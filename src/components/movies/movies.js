@@ -6,3 +6,13 @@ const Movies = ()=> {
 }
 
 export default Movies;
+
+
+function withSubscription(WrappedComponent, selectData) {
+
+
+
+
+
+    
+}
